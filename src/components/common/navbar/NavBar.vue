@@ -23,7 +23,6 @@
 
   .left, .right {
     width: 40px;
-    background-color: indianred;
   }
 
   .center {

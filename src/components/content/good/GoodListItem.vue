@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodItem.show.img" alt="">
+  <div class="goods-item" @click="itemClick">
+    <img :src="showImg" alt="" @load="imageLoad">
     <div class="goods-info">
       <p >{{goodItem.title}}</p>
       <span class="price">{{goodItem.price}}</span>
@@ -20,7 +20,22 @@
                     return {}
                 }
             }
-        }
+        },
+      computed: {
+          showImg() {
+            //逻辑或，前面如果为空就执行后面的
+            return this.goodItem.image || this.goodItem.show.img
+          }
+      },
+      methods: {
+        imageLoad() {
+            //非父子组件通信 通过事件总线将事件发出去
+            this.$bus.$emit('itemImageLoad')
+          },
+        itemClick() {
+            this.$router.push('/detail/' + this.goodItem.iid)
+        },
+      }
     }
 </script>
 
