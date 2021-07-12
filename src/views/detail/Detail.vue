@@ -2,13 +2,6 @@
   <div id="detail">
     <detail-nav-bar @itemClick="itemClick" ref="navBar"></detail-nav-bar>
     <scroll class="content" ref="scroll" @scroll="scrollPosition" :probe-type="3">
-      <div>
-        <ul>
-          <li v-for="item in $store.state.cartList">
-            {{item}}
-          </li>
-        </ul>
-      </div>
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -33,8 +26,6 @@ import DetailCommentInfo from "@/views/detail/childComps/DetailCommentInfo";
 import GoodsList from "@/components/content/good/GoodsList";
 import DetailBottomBar from "@/views/detail/childComps/DetailBottomBar";
 
-//import BackTop from "@/components/content/backTop/BackTop";
-
 import Scroll from "@/components/common/scroll/Scroll";
 
 import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "@/network/detail";
@@ -53,7 +44,6 @@ export default {
     Scroll,
     GoodsList,
     DetailBottomBar,
-
     //BackTop,
   },
   mixins:[itemListenerMixin,backTopMixin],
@@ -71,6 +61,7 @@ export default {
       themeTopYs: [],
       currentIndex: 0,
       //isShowBackTop: false,
+
     }
   },
   created() {
@@ -166,9 +157,18 @@ export default {
       product.price = this.goods.realPrice;
       product.iid = this.iid;
 
+
+
       // 2. 将商品添加到购物车里
       //this.$store.commit('addCart',product)
-      this.$store.dispatch('addCart',product)
+      this.$store.dispatch('addCart',product).then(res => {
+        console.log(this.$toast)
+        this.$toast.show(res,2000)
+      })
+
+
+
+
     },
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="check-button" :class="{checked: isChecked}" @click="checkClick">
+  <div class="check-button" :class="{checked: isChecked}" >
     <img src="~assets/images/cart/tick.svg" alt="">
   </div>
 </template>
@@ -10,14 +10,9 @@ export default {
   props: {
     isChecked: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
-  methods: {
-    checkClick() {
-
-    }
-  }
 }
 </script>
 

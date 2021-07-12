@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from 'vuex'
 import mutations from "@/store/mutations";
-
+import actions from "@/store/actions";
 //1. 安装插件
 Vue.use(Vuex)
 
@@ -31,27 +31,7 @@ const store = new Vuex.Store({
         state.cartList.push(payload)
       }
     }*/
-
-  actions: {
-    addCart(context,payload){
-      //payload新添加的商品，判断新加商品的iid和cartlist中的某个iid相等
-      let oldProduct = null;
-      //for ..in得到的是数组的下标（键名）
-      //for ..of得到的是数组的每一项值（键值）
-      for(let item of context.state.cartList){
-        if(item.iid === payload.iid){
-          oldProduct = item
-        }
-      }
-      if(oldProduct){
-        //oldProduct.count += 1
-        context.commit('addCounter',oldProduct)
-      }else{
-        payload.count = 1
-        context.commit('addToCart',payload)
-      }
-    }
-  }
+  actions,
 })
 
 //3.挂在Vue实例上

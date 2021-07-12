@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="cart-list">
     <div class="check">
-      <check-button></check-button>
+      <check-button :is-checked="product.checked" @click.native="isChecked"></check-button>
     </div>
     <div class="cart-img">
       <img :src="product.image" alt="">
@@ -30,36 +30,57 @@ export default {
         return {}
       }
     }
+  },
+  methods: {
+    isChecked() {
+      //修改模型中的属性
+      this.product.checked = !this.product.checked
+    }
   }
 }
 </script>
 
 <style scoped>
+  .cart-list {
+    display: flex;
+    border-bottom: 2px solid #999999;
+    padding: 10px 0;
+  }
   .cart-img {
-    width: 30%;
+    display: flex;
   }
   .cart-img img{
     height: 130px;
   }
-  .cart-detail {
-    width: 70%;
-  }
   .title {
-    font-size: 14px;
+    display: inline-block;
+    height: 50px;
+    width: 260px;
+    font-size: 17px;
+    /*CSS控制文字只显示一行，超出部分显示省略号(给宽度）*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .desc {
-    font-size: 12px;
+    display: inline-block;
+    height: 30px;
+    width: 260px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .price {
     color: var(--color-tint);
     font-size: 18px;
   }
   .count {
-    float: right;
+    margin-left: 150px;
   }
   .check {
     width: 20px;
-    /*justify-content: center;*/
-    /*align-items: center;*/
+    margin-top:55px;
+
   }
 </style>
